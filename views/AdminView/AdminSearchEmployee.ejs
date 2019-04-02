@@ -1,0 +1,197 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <div class="admin-page-headerstyle">
+    <img src="/images/menu-icon.png" alt="MENU" onclick="phoneMenu()">
+    <h3>Admin Dashboard</h3>
+    <a href="/admin/logout" class="logout">Đăng xuất</a>
+  </div>
+  <div id="phone-menu">
+    <a href="/admin/home" class="active">Trang chủ</a>
+    <a class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin tài khoản admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <a class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee" class="active">Thông tin nhân viên</a>
+    </div>
+
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+    <a href="/admin/logout">Đăng xuất</a>
+  </div>
+</head>
+
+<body>
+  <div class="vertical-menu">
+    <a href="/admin/home" class="active">Trang chủ</a>
+    <button class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <button class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee" class="active">Thông tin nhân viên</a>
+    </div>
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+  </div>
+
+
+  <div class="rightpages">
+    <div class="searchbox">
+      <input type="hidden" id="search" name="search">
+      <input type="text" id="keyword" name="keyword" placeholder="Tìm kiếm nhân viên">
+      <button class="searchbutton" onclick="search()"> Tìm kiếm nhân viên </button>
+    </div>
+    <div>
+      <table class="employeetable table-bordered">
+        <colgroup>
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 30%;">
+          <col span="1" style="width: 25%;">
+          <col span="1" style="width: 15%;">
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% account.forEach(function(account){ %>
+          <tr>
+
+            <td><a href="/admin/employee/fullinfo?accountid=<%= account._id %>"> <%= account.username %> </a></td>
+            <td><%= account.name %></td>
+            <td><%= account.email %></td>
+            <td><%= account.phone %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a class="page-link" id="prev-item" href="#">Trước</a></li>
+      <li class="page-item" id="firstLi"><a class="page-link" id="first-item"
+          href="/admin/employee/search?keyword=<%=keyword%>&page=1">1</a></li>
+      <li class="page-item" id="secondLi"><a class="page-link" id="second-item"
+          href="/admin/employee/search?keyword=<%=keyword%>&page=2">2</a></li>
+      <li class="page-item" id="thirdLi"><a class="page-link" id="third-item"
+          href="/admin/employee/search?keyword=<%=keyword%>&page=3">3</a></li>
+      <li class="page-item"><a class="page-link" id="next-item"
+          href="/admin/employee/search?keyword=<%=keyword%>&page=4">Kế tiếp</a></li>
+    </ul>
+
+  </div>
+
+  <script>
+
+    function search() {
+      var searchForm = document.getElementById("searchForm");
+      var keyword = document.getElementById("keyword");
+      document.location = "/admin/employee/search?keyword=" + keyword.value.trim();
+    }
+
+  </script>
+
+  <!-- Drop down navigation script-->
+  <script>
+    var dropdown = document.getElementsByClassName("dropdown-item");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function phoneMenu() {
+      var x = document.getElementById("phone-menu");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+  </script>
+
+  <script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+      }
+    };
+    var getPage = getUrlParameter('page');
+    var keyword = getUrlParameter('keyword');
+    var firstItem = document.getElementById("first-item");
+    var secondItem = document.getElementById("second-item");
+    var thirdItem = document.getElementById("third-item");
+    var nextItem = document.getElementById("next-item");
+    var prevItem = document.getElementById("prev-item");
+
+    var firstLi = document.getElementById("firstLi");
+    var secondLi = document.getElementById("secondLi");
+    var thirdLi = document.getElementById("thirdLi");
+
+    $(document).ready(function () {
+      if (getPage >= 3) {
+        var page = parseInt(getPage);
+        var firstPage = page - 1;
+        var secondPage = page;
+        var thirdPage = page + 1;
+        var prevPage = page - 1;
+        var nextPage = page + 1;
+        firstItem.innerHTML = firstPage;
+        firstItem.href = "/admin/employee/search?keyword=" + keyword + "&page=" + firstPage;
+        secondItem.innerHTML = page;
+        secondItem.href = "/admin/employee/search?keyword=" + keyword + "&page=" + secondPage;
+        thirdItem.innerHTML = thirdPage;
+        thirdItem.href = "/admin/employee/search?keyword=" + keyword + "&page=" + thirdPage;
+        nextItem.href = "/admin/employee/search?keyword=" + keyword + "&page=" + nextPage;
+        prevItem.href = "/admin/employee/search?keyword=" + keyword + "&page=" + prevPage;
+
+        $("#secondLi").addClass("active");
+      } else if (getPage == 2) {
+        prevItem.href = "/admin/employee/search?keyword=" + keyword + "&page=1";
+        nextItem.href = "/admin/employee/search?keyword=" + keyword + "&page=3";
+        $("#secondLi").addClass("active");
+      } else {
+        prevItem.href = "/admin/employee/search?keyword=" + keyword + "&page=1";
+        nextItem.href = "/admin/employee/search?keyword=" + keyword + "&page=2";
+        $("#firstLi").addClass("active");
+      }
+    });
+
+  </script>

@@ -1,0 +1,396 @@
+html, body, form, main {
+    height: 100%;
+    width: 100%;
+}
+
+label{
+    font-weight: bold;
+}
+
+.full-detail-employee{
+    padding: 1%;
+}
+.full-detail-employee p{
+    display: inline-block;
+}
+  .was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus{
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .was-validated .form-control:valid{
+    border-color: #ccc;
+  }
+
+.admin-login-center {
+    width: 40%;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+
+.admin-login-center input[type=submit] {
+width: 100%;
+}
+
+.admin-login-center h1 {
+    text-align: center;
+}
+
+.margintextbox {
+    margin-top: 1%;
+}
+    
+.alligncenterforbtn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.headerstyle{
+    position: fixed;
+    height: 3em;
+    width: 100%;
+    padding: 0.5em;
+    background-color: #3A4750;
+    color:white;
+    text-align: left;
+    overflow: hidden;
+    z-index:1;
+}
+
+.admin-page-headerstyle{
+    position: fixed;
+    height: 3em;
+    width: 100%;
+    padding: 0.5em;
+    background-color: #3A4750;
+    color:white;
+    text-align: left;
+    overflow: hidden;
+    z-index:1;
+    left: 0;
+}
+
+/*.admin-page-headerstyle ul{
+    list-style-type: none;
+}
+
+.admin-page-headerstyle li{
+    float: left;
+}
+
+.admin-page-headerstyle li h3{
+    display: block;
+    color: white;
+    text-decoration: none;  
+} */
+
+.admin-page-headerstyle h3 {
+    display: inline;
+    color: white;
+    text-decoration: none;  
+}
+
+.admin-page-headerstyle img{
+    height: 1.3em;
+    width: 1.3em;
+    display: inline;
+    vertical-align: -webkit-baseline-middle;
+    line-height: 0;
+    margin-bottom: 1.2em;
+    margin-right: 1em;
+    color: white;
+    text-decoration: none;  
+}
+
+.vertical-menu {
+    position: fixed;
+    float:left;
+    height: 100%;
+    width: 17%; 
+    top: 3em;
+    bottom: 0;
+    background-color: #2C363C;
+    overflow: auto;
+    padding-bottom: 2em;
+    z-index: 1;
+}
+
+.vertical-menu a, .vertical-menu button {
+    display: block; 
+    padding: 12px; 
+    background-color: #2C363C; 
+    color: white; 
+    text-decoration: none; 
+    border: none;
+}
+      
+.dropdown-item{
+    display: block; 
+    white-space: normal;
+    padding: 12px; 
+    background-color: #2C363C; 
+    color: white; 
+    text-decoration: none; 
+    border: none;
+    text-align: left;
+    width: 100%;
+    z-index: 1;
+}
+.breadcrumb-text {
+    border-bottom: none !important;
+}
+.vertical-menu a:hover, .vertical-menu button:hover, .vertical-menu button:focus:hover,  #phone-menu button:focus:hover, #phone-menu button:hover, #phone-menu a:hover, #phone-menu a:focus:hover {
+    background-color: #00A79A; 
+    color:white;
+}
+      
+.vertical-menu a.active  {
+    background-color: #00A79A; 
+    color: white;
+}
+
+.vertical-menu button:focus, .vertical-menu button.active, #phone-menu button:focus, #phone-menu a:focus{
+    background-color: #2C363C; 
+    color: white;
+}
+
+.dropdown-container {
+    display: none;
+    background-color: grey;
+    padding-left: 8px;
+    z-index: 1;
+}
+  
+#phone-menu{
+    display:none;
+    position:fixed;
+    top: 3em;
+    width: 100%; 
+    z-index: 2;
+    background-color: #2C363C; 
+}
+
+#phone-menu a{
+    width: 100%;
+    height: 2em;
+    padding: 1%;
+    border-width: 1px;
+    color: white;
+    background-color: #2C363C; 
+    text-decoration: none;
+    display: block;
+    border-bottom-style: solid;
+    border-bottom-color: #3d4b53;
+}
+
+#phone-menu a.active{
+    background-color: #00A79A; 
+    color: white;
+}
+
+.logout{
+    float:right;
+    color:white;
+}
+.rightpages{
+    position: absolute;
+    float: left;
+    height: 100%;
+    width: 83%;
+    top: 3em;
+    bottom: 0;
+    left:17%;
+    right: 0;
+    padding:1%;
+    margin-right: 15em;
+    z-index:0;
+}
+
+.searchbox{
+    display:inline;
+    margin: 1%;
+    z-index: 1;
+}
+
+.searchbutton{
+    background-color: #3895D3;
+    margin: 1%;
+    border-radius: 5px;
+    color:white;
+    z-index: 1;
+}
+
+.employeetable{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    border-collapse: collapse;
+    width: 100%;
+    z-index: 1;
+}
+.employeetable th, td {
+    text-align: left;
+    padding: 8px;
+}
+  
+.employeetable tr:nth-child(even){background-color: #f2f2f2}
+  
+.employeetable         th {
+    background-color: #00A79A;
+    color: white;
+  }
+  
+.pagebody{
+    padding: 1%;
+    height:100%;
+}
+
+.pagefooter{
+    background-color: black;
+    color: white;
+}
+
+
+.column {
+    float: left;
+    position: relative;
+    display:block;
+    width: 48%;
+    height: 6em; /* Should be removed. Only for demonstration */
+    padding: 1%;
+    margin: 1%;
+    border-radius: 5px;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+
+.column-small {
+    float: left;
+    position: relative;
+    display:block;
+    width: 31%;
+    height: 6em; /* Should be removed. Only for demonstration */
+    padding: 1%;
+    margin: 1%;
+    border-radius: 5px;
+    }
+
+.column-small-img{
+    float: left;
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.column-small-text{
+    float: right;
+    display: block;
+    position: relative;
+    white-space: normal;
+    word-wrap: break-word;
+    font-style: bold;
+    color: white;
+    margin-bottom: 2%;
+}
+
+.column-small-number{
+    float: right;
+    text-align: right;
+    display: block;
+    position: relative;
+    white-space: normal;
+    word-wrap: break-word;
+    color: white;
+    margin-bottom: 2%;
+    font-size: 1.5em;
+}
+
+.column-small-text-area{
+    display: inline-block;
+    width: 80%;
+    height: 100%;
+}
+
+.log-table{
+    padding-right: 1%;
+    width: 100%;
+}
+/*END GRID VIEW DATA*/
+
+.deactive-account-btn{
+    float:right;
+    color:white;
+    background-color: #d43f3a;
+}
+
+.active-account-btn{
+    float:right;
+    background-color: #00AD48;
+    color:white;
+}
+
+.deactive-account-text{
+    text-align: center;
+    color:#d43f3a;
+    font-size: 2em;
+}
+@media only screen and (min-width: 1080px) {
+    .admin-page-headerstyle img{
+        display: none;
+    }
+    #phone-menu{
+        display: none;
+    }
+}
+  
+@media only screen and (max-width: 1080px) {
+    .vertical-menu {
+      display: none;
+    }
+    .rightpages{
+        left: 0;
+        padding: 1%;
+        width: 100%;
+    }
+    .admin-login-center {
+        width: 100%;
+        margin: 0 auto;
+        overflow: auto;
+    }
+    .column {
+        float: left;
+        width: 100%;
+        padding: 10px;
+        height: 6em; 
+    }
+    .column-small {
+        float: left;
+        width: 100%;
+        padding: 10px;
+        margin: 1%;
+        height: 6em; 
+    }
+    .column-small-text{
+        float: right;
+        display: block;
+        position: relative;
+        white-space: normal;
+        word-wrap: break-word;
+        font-style: bold;
+        color: white;
+        margin-bottom: 2%;
+    }    
+    .logout{
+        display: none;
+    }
+}
+/* GRID VIEW ADMIN DATA */

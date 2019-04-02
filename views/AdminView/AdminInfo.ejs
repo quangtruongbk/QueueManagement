@@ -1,0 +1,155 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <div class="admin-page-headerstyle">
+    <img src="/images/menu-icon.png" alt="MENU" onclick="phoneMenu()">
+    <h3>Admin Dashboard</h3>
+    <a href="/admin/logout" class="logout">Đăng xuất</a>
+  </div>
+  <div id="phone-menu">
+    <a href="/admin/home">Trang chủ</a>
+    <a class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/account/info" class="active">Thông tin tài khoản admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <a class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee">Thông tin nhân viên</a>
+    </div>
+
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+    <a href="/admin/logout">Đăng xuất</a>
+  </div>
+</head>
+
+<body>
+  <div class="vertical-menu">
+    <a href="/admin/home" class="active">Trang chủ</a>
+    <button class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/account/info" class="active">Thông tin admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <button class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee">Thông tin nhân viên</a>
+    </div>
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+  </div>
+
+  <div class="rightpages">
+    <h1 class="display-4" style="padding: 1%">Thông tin tài khoản admin</h1>
+    <div class="full-detail-employee">
+      <div class="form-group">
+        <label for="fullname">Họ và tên:</label>
+        <p><%= account.name %></p>
+      </div>
+      <div class="form-group">
+        <label>Username:</label>
+        <p><%= account.username %></p>
+      </div>
+      <div class="form-group">
+        <label for="customerphone">Số điện thoại:</label>
+        <p><%= account.phone %></p>
+      </div>
+      <div class="form-group">
+        <label for="customeremail">Email:</label>
+        <p><%= account.email %></p>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<!-- Drop down navigation script-->
+<script>
+  var dropdown = document.getElementsByClassName("dropdown-item");
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+</script>
+
+<script>
+
+  function changeInfo() {
+    var accountID = document.getElementById("accountID");
+    document.location = "/admin/employee/changeinfo?accountid=" + accountID.value;
+  }
+</script>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("phone-menu");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  }
+</script>
+
+<script>
+
+  $(function setRole() {
+    var roleTable = document.getElementById("role-table");
+    var roleGroup = document.getElementsByName("roleGroup");
+    var branchID = document.getElementsByName("branchID");
+    var roleJSONArr = JSON.parse(roleGroup[0].value);
+    for (var i = 0; i < roleJSONArr.length; i++) {
+      //Chi can them truong hop i = 0 cho tao co so
+      var roleTable = document.getElementById("role-table");
+      var controlQueue = document.getElementById("controlQueue" + roleJSONArr[i].branchID);
+      var changeInfoQueue = document.getElementById("changeInfoQueue" + roleJSONArr[i].branchID);
+      var createQueue = document.getElementById("createQueue" + roleJSONArr[i].branchID);
+      var changeInfoBranch = document.getElementById("changeInfoBranch" + roleJSONArr[i].branchID);
+      var getDataBranch = document.getElementById("getDataBranch" + roleJSONArr[i].branchID);
+
+      if (roleJSONArr[i].role[0] == '1') {
+        $("#controlQueue" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#controlQueue" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[1] == '1') {
+        $("#changeInfoQueue" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#changeInfoQueue" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[2] == '1') {
+        $("#createQueue" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#createQueue" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[3] == '1') {
+        $("#changeInfoBranch" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#changeInfoBranch" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[4] == '1') {
+        $("#getDataBranch" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#getDataBranch" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+    }
+  }
+  );
+</script>

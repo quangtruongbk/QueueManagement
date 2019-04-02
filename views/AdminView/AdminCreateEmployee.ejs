@@ -1,0 +1,310 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <div class="admin-page-headerstyle">
+    <img src="/images/menu-icon.png" alt="MENU" onclick="phoneMenu()">
+    <h3>Admin Dashboard</h3>
+    <a href="/admin/logout" class="logout">Đăng xuất</a>
+  </div>
+  <div id="phone-menu">
+    <a href="/admin/home">Trang chủ</a>
+    <a class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin tài khoản admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <a class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create" class="active">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee">Thông tin nhân viên</a>
+    </div>
+
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+    <a href="/admin/logout">Đăng xuất</a>
+  </div>
+</head>
+
+<body>
+  <div class="vertical-menu">
+    <a href="/admin/home" class="active">Trang chủ</a>
+    <button class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <button class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create" class="active">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee">Thông tin nhân viên</a>
+    </div>
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+  </div>
+
+  <div class="rightpages">
+    <h1 class="display-4" style="padding: 1%">Tạo tài khoản nhân viên</h1>
+
+    <form method="post" action="/admin/employee/create" style="padding: 1%" id="createEmpForm">
+      <div class="form-group">
+        <label for="fullname">Họ và tên</label>
+        <input type="text" name="fullname" id="fullname" class="form-control" required="required"
+          title="Họ và tên không được để trống">
+        <div class="invalid-feedback">
+          Họ và tên không được để trống
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" class="form-control" required="required"
+          pattern="[A-Za-z0-9]{6,12}"
+          title="Username chỉ được có chữ hoa, chữ thường và số, không được có ký tự đặc biệt, chiều dài username từ 6-12 ký tự"
+          placeholder="Gồm chữ hoa, chữ thường và số, chiều dài username từ 6-12 ký tự">
+        <div class="invalid-feedback">
+          Username chỉ được bao gồm chữ hoa, chữ thường và số, không được có ký tự đặc biệt, chiều dài username từ
+          6-12 ký tự
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="customerphone">Số điện thoại</label>
+        <input type="tel" name="phone" id="phone" class="form-control" required="required" pattern="[0-9]{8,15}"
+          title="Xin vui lòng nhập số điện thoại cho hợp lệ"></textarea>
+        <div class="invalid-feedback">
+          Số điện thoại chưa hợp lệ
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="customeremail">Email</label>
+        <input type="email" name="email" id="email" class="form-control" required="required"
+          title="Xin vui lòng nhập email cho hợp lệ"></textarea>
+        <div class="invalid-feedback">
+          Email chưa hợp lệ
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Mật khẩu ban đầu</label>
+        <input type="password" name="password" id="password" class="form-control" pattern=".{6,.}"
+          title="Mật khẩu phải từ 6 ký tự trở lên" required="required"></textarea>
+        <div class="invalid-feedback">
+          Vui lòng nhập mật khẩu hợp lệ. Mật khẩu từ 6 ký tự trở lên.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmpass">Xác nhận mật khẩu ban đầu</label>
+        <input type="password" name="confirmpass" id="confirmpass" class="form-control" required="required"></textarea>
+        <div class="invalid-feedback">
+          Xác nhận mật khẩu chưa trùng khớp hoặc chưa nhập
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="shift">Thời gian làm việc</label>
+        <input type="text" name="shift" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Phân quyền:</label>
+      </div>
+
+      <label for="createBranch">Tạo cơ sở mới</label>
+      <input type="checkbox" name="createBranch">
+
+      <div>
+        <table class="employeetable  table-bordered" id="role-table">
+          <colgroup>
+            <col span="1" style="width: 30%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Cơ sở</th>
+              <th>Quản lý hàng đợi</th>
+              <th>Chỉnh sửa thông tin hàng đợi</th>
+              <th>Tạo hàng đợi</th>
+              <th>Chỉnh sửa thông tin cơ sở</th>
+              <th>Xem dữ liệu cơ sở</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% branch.forEach(function(branch){ %>
+            <tr>
+              <td><%= branch.name %>
+                <input type="hidden" id="branchID" name="branchID" value=<%= branch.id %>>
+              </td>
+              <td>
+                <input type="checkbox" name="controlQueue" id="controlQueue">
+              </td>
+              <td>
+                <input type="checkbox" name="changeInfoQueue" id="changeInfoQueue>">
+              </td>
+              <td>
+                <input type="checkbox" name="createQueue" id="createQueue">
+              </td>
+              <td>
+                <input type="checkbox" name="changeInfoBranch" id="changeInfoBranch">
+              </td>
+              <td>
+                <input type="checkbox" name="getDataBranch" id="getDataBranch">
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <input type="submit" value="Tạo tài khoản" class="btn btn-primary" onclick="getRole()" id="createEmpBtn">
+    </form>
+  </div>
+</body>
+<!-- Drop down navigation script-->
+<script>
+  var dropdown = document.getElementsByClassName("dropdown-item");
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+</script>
+
+<script>
+  function phoneMenu() {
+    var x = document.getElementById("phone-menu");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  }
+</script>
+
+<script>
+  function getRole() {
+    var func_group = [];
+
+    var role_table = [,];
+    var role_string = "";
+    var roleTable = document.getElementById("role-table");
+    var controlQueue = document.getElementsByName("controlQueue");
+    var changeInfoQueue = document.getElementsByName("changeInfoQueue");
+    var createQueue = document.getElementsByName("createQueue");
+    var changeInfoBranch = document.getElementsByName("changeInfoBranch");
+    var getDataBranch = document.getElementsByName("getDataBranch");
+    var branchID = document.getElementsByName("branchID");
+    var role_group = [];
+
+    for (var i = 0; i < controlQueue.length; i++) {
+      role_string = role_string + branchID[i].value + " ";
+      if (controlQueue[i].checked == true) {
+        role_string = role_string + '1';
+      }
+      else {
+        role_string = role_string + '0';
+      }
+      if (changeInfoQueue[i].checked == true) {
+        role_string = role_string + '1';
+      }
+      else {
+        role_string = role_string + '0';
+      }
+      if (createQueue[i].checked == true) {
+        role_string = role_string + '1';
+      }
+      else {
+        role_string = role_string + '0';
+      }
+      if (changeInfoBranch[i].checked == true) {
+        role_string = role_string + '1';
+      }
+      else {
+        role_string = role_string + '0';
+      }
+      if (getDataBranch[i].checked == true) {
+        role_string = role_string + '1';
+      }
+      else {
+        role_string = role_string + '0';
+      }
+      role_string = role_string + ',';
+    }
+
+    $("#createEmpForm").submit(function (eventObj) {
+      $('<input />').attr('type', 'hidden')
+        .attr('name', 'role')
+        .attr('value', role_string)
+        .appendTo('#createEmpForm');
+      return true;
+    });
+  }
+
+</script>
+
+<script>
+  $("#createEmpForm").submit(function (eventObj) {
+    var role_group = getRole(branch);
+    alert('xxx');
+    $('<input />').attr('type', 'hidden')
+      .attr('role', role_group)
+      .appendTo('#createEmpForm');
+    return true;
+  });
+</script>
+
+<script>
+  var password = document.getElementById("password")
+  var confirmpass = document.getElementById("confirmpass");
+
+  function validatePassword() {
+    if (password.value != confirmpass.value) {
+      confirmpass.setCustomValidity("Xác nhận mật khẩu không trùng khớp");
+    } else {
+      confirmpass.setCustomValidity('');
+    }
+  }
+
+  password.onchange = validatePassword;
+  confirmpass.onkeyup = validatePassword;
+</script>
+
+<script>
+  var phone = document.getElementById("phone");
+  var email = document.getElementById("email");
+  var createEmpForm = document.getElementById("createEmpForm");
+  email.oninvalid = function (event) {
+    event.target.setCustomValidity('Xin vui lòng nhập email hợp lệ.');
+    phone.innerHTML("Xin vui lòng nhập email hợp lệ.");
+  }
+  phone.oninvalid = function (event) {
+    event.target.setCustomValidity('Xin vui lòng nhập số điện thoại hợp lệ.');
+  }
+</script>
+
+<script>
+  $("#createEmpBtn").click(function (event) {
+
+    // Fetch form to apply custom Bootstrap validation
+    var form = $("#createEmpForm")
+
+    if (form[0].checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    form.addClass('was-validated');
+  });
+</script>

@@ -1,0 +1,149 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <div class="admin-page-headerstyle">
+    <img src="/images/menu-icon.png" alt="MENU" onclick="phoneMenu()">
+    <h3>Admin Dashboard</h3>
+    <a href="/admin/logout" class="logout">Đăng xuất</a>
+  </div>
+  <div id="phone-menu">
+    <a href="/admin/home">Trang chủ</a>
+    <a class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin tài khoản admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <a class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee">Thông tin nhân viên</a>
+    </div>
+
+    <a href="/admin/system/data" class="active">Dữ liệu hệ thống</a>
+    <a href="/admin/logout">Đăng xuất</a>
+  </div>
+</head>
+
+<body>
+  <div class="vertical-menu">
+    <a href="/admin/home">Trang chủ</a>
+    <button class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <button class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee">Thông tin nhân viên</a>
+    </div>
+    <a href="/admin/system/data" class="active">Dữ liệu hệ thống</a>
+  </div>
+
+  <div class="rightpages">
+    <h1 class="display-4" style="padding: 1%">Dữ liệu hệ thống</h1>
+    <div class="row">
+      <div class="column-small" style=" background-color: #648ED9;">
+        <div class="column-small-img"> <img src="/images/customer.png" height="70" width="70"> </div>
+        <div class="column-small-text-area">
+          <span class="column-small-text"> Tổng số tài khoản khách hàng </span>
+          <br></br>
+          <p class="column-small-number"><%=noOfCustomer%></p>
+        </div>
+      </div>
+      <div class="column-small" style=" background-color: #00AC5C;">
+        <div class="column-small-img"> <img src="/images/employee.png" height="70" width="70"> </div>
+        <div class="column-small-text-area">
+          <span class="column-small-text"> Tổng số tài khoản nhân viên </span>
+          <br></br>
+          <p class="column-small-number"><%=noOfEmp%></p>
+        </div>
+      </div>
+      <div class="column-small" style=" background-color: #FA634D;">
+        <div class="column-small-img"> <img src="/images/office.png" height="70" width="70"> </div>
+        <div class="column-small-text-area">
+          <span class="column-small-text"> Tổng số cơ sở </span>
+          <br></br>
+          <p class="column-small-number"><%=noOfBranch%></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column" style=" background-color: #626F7D;">
+        <div class="column-small-img"> <img src="/images/queue.png" height="70" width="70"> </div>
+        <div class="column-small-text-area">
+          <span class="column-small-text"> Tổng số hàng đợi </span>
+          <br></br>
+          <p class="column-small-number"><%=noOfQueue%></p>
+        </div>
+      </div>
+      <div class="column" style=" background-color: #E49900;">
+        <div class="column-small-img"> <img src="/images/time.png" height="70" width="70"> </div>
+        <div class="column-small-text-area">
+          <span class="column-small-text"> Thời gian chờ trung bình </span>
+          <br></br>
+          <p class="column-small-number">30000000</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="log-table">
+      <h3>Nhật ký hệ thống</h3>
+      <table class="employeetable  table-bordered" id="log-table">
+        <colgroup>
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 80%;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Nội dung</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+<!-- Drop down navigation script-->
+<script>
+  var dropdown = document.getElementsByClassName("dropdown-item");
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+</script>
+
+<script>
+  function phoneMenu() {
+    var x = document.getElementById("phone-menu");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  }
+</script>

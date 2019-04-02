@@ -1,0 +1,35 @@
+<head>
+    <div style="background-color: black; padding: 20px">
+        <h1 class="display-4" style="margin: 20px; color:white">Demo luận văn tốt nghiệp</h1>
+    </div>
+</head>
+
+<body>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Cơ sở</a></li>
+    </ol>
+
+    <div class="pagebody">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Hàng đợi</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <% queue.forEach(function(queue){ %>
+                <tr>
+                    <td><a href='<%=branchID%>/<%=queue.id%>'><%= queue.name %></a></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<footer class="page-footer pagefooter">
+        <div class="footer-copyright text-center py-3">Bản quyền thuộc về Đại học Bách Khoa TPHCM
+        </div>
+    </footer>

@@ -1,0 +1,150 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <div class="admin-page-headerstyle">
+    <img src="/images/menu-icon.png" alt="MENU" onclick="phoneMenu()">
+    <h3>Admin Dashboard</h3>
+    <a href="/admin/logout" class="logout">Đăng xuất</a>
+  </div>
+  <div id="phone-menu">
+    <a href="/admin/home">Trang chủ</a>
+    <a class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin tài khoản admin</a>
+      <a href="/admin/account/changepassword" class="active">Đổi mật khẩu</a>
+    </div>
+
+    <a class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee" >Thông tin nhân viên</a>
+    </div>
+
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+    <a href="/admin/logout">Đăng xuất</a>
+  </div>
+</head>
+
+<body>
+  <div class="vertical-menu">
+    <a href="/admin/home">Trang chủ</a>
+    <button class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin admin</a>
+      <a href="/admin/account/changepassword" class="active">Đổi mật khẩu</a>
+    </div>
+
+    <button class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee" >Thông tin nhân viên</a>
+    </div>
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+  </div>
+
+  <div class="rightpages">
+    <h1 class="display-4" style="padding: 1%">Đổi mật khẩu</h1>
+
+    <form method="post" action="/admin/account/changepassword" style="padding: 1%" id="changePassForm" name="changePassForm" class="changePassForm">
+      <%
+      if(typeof status != 'undefined'){
+        if(status=='200')
+      {%>
+      <p class="deactive-account-text"> Đổi mật khẩu thành công </p>
+      <% }else if(status =='406'){
+       %>
+       <p class="deactive-account-text"> Nhập mật khẩu hiện tại sai </p>
+       <% }}
+        %>
+      <div class="form-group">
+        <label for="password">Mật khẩu hiện tại</label>
+        <input type="password" name="oldpassword" class="form-control" id="oldpassword" required="required"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmpass">Nhập mật khẩu mới</label>
+        <input type="password" name="newpassword" class="form-control" id="newpassword" pattern=".{6,}"
+          required="required" title="Vui lòng nhập mật khẩu hợp lệ. Mật khẩu từ 6 ký tự trở lên."></textarea>
+        <div class="invalid-feedback">
+          Vui lòng nhập mật khẩu hợp lệ. Mật khẩu từ 6 ký tự trở lên.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmpass">Xác nhận mật khẩu mới</label>
+        <input type="password" name="confirmpass" class="form-control" id="confirmpass" required="required"></textarea>
+        <div class="invalid-feedback">
+          Xác nhận mật khẩu mới không trùng khớp
+        </div>
+      </div>
+
+      <input type="submit" value="Đổi mật khẩu" class="btn btn-primary" id="changePassSubmit">
+    </form>
+  </div>
+</body>
+<!-- Drop down navigation script-->
+<script>
+  var dropdown = document.getElementsByClassName("dropdown-item");
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+</script>
+
+<script>
+  function phoneMenu() {
+    var x = document.getElementById("phone-menu");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  }
+</script>
+
+<script>
+  var newpassword = document.getElementById("newpassword")
+  var confirmpass = document.getElementById("confirmpass");
+
+  function validatePassword() {
+    if (newpassword.value != confirmpass.value) {
+      confirmpass.setCustomValidity("Xác nhận mật khẩu mới không trùng khớp");
+    } else {
+      confirmpass.setCustomValidity('');
+    }
+  }
+
+  newpassword.onchange = validatePassword;
+  confirmpass.onkeyup = validatePassword;
+</script>
+
+<script>
+  $("#changePassSubmit").click(function (event) {
+
+    // Fetch form to apply custom Bootstrap validation
+    var form = $("#changePassForm")
+
+    if (form[0].checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    form.addClass('was-validated');
+    // Perform ajax submit here...
+
+  });
+</script>

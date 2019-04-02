@@ -1,0 +1,23 @@
+<h1 class="display-4">Danh sách cơ sở</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Cơ sở</th>
+            <th>Địa chỉ</th>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <% branch.forEach(function(branch){ %>
+        <tr>
+            <td><a href='/branch/<%= branch.id %>'><%= branch.name %></a></td>
+            <td><%= branch.location %></td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<footer class="page-footer pagefooter">
+    <div class="footer-copyright text-center py-3">Bản quyền thuộc về Đại học Bách Khoa TPHCM
+    </div>
+</footer>

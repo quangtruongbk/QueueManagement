@@ -1,0 +1,233 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <div class="admin-page-headerstyle">
+    <img src="/images/menu-icon.png" alt="MENU" onclick="phoneMenu()">
+    <h3>Admin Dashboard</h3>
+    <a href="/admin/logout" class="logout">Đăng xuất</a>
+  </div>
+  <div id="phone-menu">
+    <a href="/admin/home" class="active">Trang chủ</a>
+    <a class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin tài khoản admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <a class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </a>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee" class="active">Thông tin nhân viên</a>
+    </div>
+
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+    <a href="/admin/logout">Đăng xuất</a>
+  </div>
+</head>
+
+<body>
+  <div class="vertical-menu">
+    <a href="/admin/home" class="active">Trang chủ</a>
+    <button class="dropdown-item">Tài khoản admin <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/account/info">Thông tin admin</a>
+      <a href="/admin/account/changepassword">Đổi mật khẩu</a>
+    </div>
+
+    <button class="dropdown-item">Nhân viên <span style="float:right;">+</span>
+    </button>
+    <div class="dropdown-container">
+      <a href="/admin/employee/create">Tạo tài khoản nhân viên</a>
+      <a href="/admin/employee" class="active">Thông tin nhân viên</a>
+    </div>
+    <a href="/admin/system/data">Dữ liệu hệ thống</a>
+  </div>
+
+  <div class="rightpages">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/employee" class="breadcrumb-text">Nhân viên</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thông tin nhân viên</li>
+      </ol>
+    </nav>
+
+    <h1 class="display-4" style="padding: 1%">Thông tin nhân viên</h1>
+    <%
+        if(account.status=='-1')
+        {%>
+    <p class="deactive-account-text"> Tài khoản đang bị khóa </p>
+    <% } %>
+    <div class="full-detail-employee">
+      <div class="form-group">
+        <label for="fullname">Họ và tên:</label>
+        <p><%= account.name %></p>
+      </div>
+      <div class="form-group">
+        <label>Username:</label>
+        <p><%= account.username %></p>
+      </div>
+      <div class="form-group">
+        <label for="customerphone">Số điện thoại:</label>
+        <p><%= account.phone %></p>
+      </div>
+      <div class="form-group">
+        <label for="customeremail">Email:</label>
+        <p><%= account.email %></p>
+      </div>
+      <div class="form-group">
+        <label for="shift">Thời gian làm việc:</label>
+        <p><%= employee.shift %></p>
+      </div>
+      <div class="form-group">
+        <label>Phân quyền:</label>
+      </div>
+
+      <label for="createBranch">Tạo cơ sở mới</label>
+      <input type="checkbox" name="createBranch">
+
+      <input type="hidden" id="accountID" name="accountID" class="form-control" value="<%= employee.accountID %>">
+      <input type="hidden" id="employeeObj" name="employeeObj" value="<%= employee %>">
+
+      <div>
+        <table class="employeetable  table-bordered" id="role-table">
+          <colgroup>
+            <col span="1" style="width: 30%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+            <col span="1" style="width: 14%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Cơ sở</th>
+              <th>Quản lý hàng đợi</th>
+              <th>Chỉnh sửa thông tin hàng đợi</th>
+              <th>Tạo hàng đợi</th>
+              <th>Chỉnh sửa thông tin cơ sở</th>
+              <th>Xem dữ liệu cơ sở</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% branch.forEach(function(branch){ %>
+            <tr>
+              <td><%= branch.name %>
+                <input type="hidden" id="branchID" name="branchID" value=<%= branch.id %>>
+                <input type="hidden" id="roleGroup" name="roleGroup" value=<%= employee.role %>>
+
+              </td>
+              <td>
+                <input type="checkbox" name="controlQueue" disabled="disabled" id="controlQueue<%= branch.id %>">
+              </td>
+              <td>
+                <input type="checkbox" name="changeInfoQueue" disabled="disabled" id="changeInfoQueue<%= branch.id %>">
+              </td>
+              <td>
+                <input type="checkbox" name="createQueue" disabled="disabled" id="createQueue<%= branch.id %>">
+              </td>
+              <td>
+                <input type="checkbox" name="changeInfoBranch" disabled="disabled"
+                  id="changeInfoBranch<%= branch.id %>">
+              </td>
+              <td>
+                <input type="checkbox" name="getDataBranch" disabled="disabled" id="getDataBranch<%= branch.id %>">
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <input type="hidden" id="accountID" value="<%=account.id%>" />
+      <input type="submit" value="Chỉnh sửa" onclick="changeInfo()" class="btn btn-primary" />
+    </div>
+  </div>
+  </div>
+</body>
+
+<!-- Drop down navigation script-->
+<script>
+  var dropdown = document.getElementsByClassName("dropdown-item");
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+</script>
+
+<script>
+
+  function changeInfo() {
+    var accountID = document.getElementById("accountID");
+    document.location = "/admin/employee/changeinfo?accountid=" + accountID.value;
+  }
+</script>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("phone-menu");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  }
+</script>
+
+<script>
+
+  $(function setRole() {
+    var roleTable = document.getElementById("role-table");
+    var roleGroup = document.getElementsByName("roleGroup");
+    var branchID = document.getElementsByName("branchID");
+    var roleJSONArr = JSON.parse(roleGroup[0].value);
+    for (var i = 0; i < roleJSONArr.length; i++) {
+      //Chi can them truong hop i = 0 cho tao co so
+      var roleTable = document.getElementById("role-table");
+      var controlQueue = document.getElementById("controlQueue" + roleJSONArr[i].branchID);
+      var changeInfoQueue = document.getElementById("changeInfoQueue" + roleJSONArr[i].branchID);
+      var createQueue = document.getElementById("createQueue" + roleJSONArr[i].branchID);
+      var changeInfoBranch = document.getElementById("changeInfoBranch" + roleJSONArr[i].branchID);
+      var getDataBranch = document.getElementById("getDataBranch" + roleJSONArr[i].branchID);
+
+      if (roleJSONArr[i].role[0] == '1') {
+        $("#controlQueue" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#controlQueue" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[1] == '1') {
+        $("#changeInfoQueue" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#changeInfoQueue" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[2] == '1') {
+        $("#createQueue" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#createQueue" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[3] == '1') {
+        $("#changeInfoBranch" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#changeInfoBranch" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+      if (roleJSONArr[i].role[4] == '1') {
+        $("#getDataBranch" + roleJSONArr[i].branchID).prop('checked', true);
+      } else {
+        $("#getDataBranch" + roleJSONArr[i].branchID).prop('checked', false);
+      }
+    }
+  }
+  );
+</script>
